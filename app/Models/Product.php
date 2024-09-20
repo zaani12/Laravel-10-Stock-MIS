@@ -14,5 +14,6 @@ class Product extends Model
         'quantity',
         'supplier',
         'photo',
+        'registerDate',
     ];
 }

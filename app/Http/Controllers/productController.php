@@ -1,7 +1,7 @@
 <?php
-  
+
 namespace App\Http\Controllers;
-  
+
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
@@ -29,7 +29,7 @@ class ProductController extends Controller
             'direction' => $direction,
         ]);
     }
-  
+
     /**
      * Show the form for creating a new resource.
      */
@@ -37,27 +37,32 @@ class ProductController extends Controller
     {
         return view('products.create');
     }
-  
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
 {
+    // dd($request->all());
     $validatedData = $request->validate([
         'productName' => 'required',
         'unitPrice' => 'required',
         'quantity' => 'required',
         'supplier' => 'required',
-        'file' => 'required|image|max:2048', 
+        // 'file' => 'required|image|max:2048',
+        // 'registerDate' => 'required',
     ]);
+    // dd($validatedData);
 
     $product = Product::create($validatedData);
+    // dd($product);
 
-    if ($request->hasFile('file')) {
-        $photoPath = $request->file('file')->store('images', 'public');
-        $product->photo = $photoPath;
-        $product->save();
-    }
+
+    // if ($request->hasFile('file')) {
+    //     $photoPath = $request->file('file')->store('images', 'public');
+    //     $product->photo = $photoPath;
+    //     $product->save();
+    // }
 
     return redirect()->route('products')->with('success', 'Product added successfully');
 }
@@ -67,56 +72,56 @@ class ProductController extends Controller
     public function show(string $id)
     {
         $product = Product::findOrFail($id);
-  
+
         return view('products.show', compact('product'));
     }
-  
+
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
-  
+
         return view('products.edit', compact('product'));
     }
-  
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
 {
     $product = Product::findOrFail($id);
-    $previousPhoto = $product->photo;  
+    $previousPhoto = $product->photo;
     $product->update($request->all());
 
     if ($request->hasFile('file')) {
         $newPhoto = $request->file('file');
-    
+
         $newPhotoPath = $newPhoto->store('images', 'public');
 
         $product->photo = $newPhotoPath;
         $product->save();
-    
+
         if ($previousPhoto && Storage::disk('public')->exists($previousPhoto)) {
             Storage::disk('public')->delete($previousPhoto);
         }
     }
-  
+
     return redirect()->route('products')->with('success', 'Product updated successfully');
 }
-  
+
     /**
      * Remove the specified resource from storage.
      */
-  
+
 public function destroy(string $id)
 {
     $product = Product::findOrFail($id);
-    
+
     if (!empty($product->photo)) {
         $photoPath = $product->photo;
-        
+
         if (Storage::disk('public')->exists($photoPath)) {
             Storage::disk('public')->delete($photoPath);
         }
@@ -135,7 +140,7 @@ public function search(Request $request){
         ->orWhere('registerDate','like',"%$search%")
         ->orWhere('supplier','like',"%$search%");
     })->paginate(4);
-    
+
     return view('products.index', compact('product','search'));
 }
 }

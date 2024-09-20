@@ -70,7 +70,7 @@ Route::middleware('auth')->group(function () {
         Route::put('update/{id}','update')->name('suppliers/update');
         Route::get('destroy/{id}','destroy')->name('suppliers/delete');
     });
-    
+
     Route::get('fetchEmployees',[EmployeeController::class, 'fetchData']);
 });
 
@@ -94,7 +94,7 @@ Route::post('formLogin',[loginController::class, 'userLogin']);
 
 // Route::get('/logins', function(){
 //     if(session()->has('user')){
-        
+
 //         return redirect('fetchEmployees');
 //     }
 //     return view('login');
