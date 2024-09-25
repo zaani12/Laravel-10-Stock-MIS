@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Sell;
+
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -42,30 +44,30 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    // dd($request->all());
-    $validatedData = $request->validate([
-        'productName' => 'required',
-        'unitPrice' => 'required',
-        'quantity' => 'required',
-        'supplier' => 'required',
-        // 'file' => 'required|image|max:2048',
-        // 'registerDate' => 'required',
-    ]);
-    // dd($validatedData);
+    {
+        // Validate the request
+        // dd($request->all());
+        $validatedData = $request->validate([
+            'productName' => 'required',
+            'unitPrice' => 'required|integer',
+            'quantity' => 'required|integer',
+            'supplier' => 'required|string',
+            'registerDate' => 'required|date',
+            'file' => 'required|image|max:2048',
+        ]);
+        // dd($validatedData);
+       // Create the product
+       $product = Product::create($validatedData);
 
-    $product = Product::create($validatedData);
-    // dd($product);
+        if ($request->hasFile('file')) {
+            $photoPath = $request->file('file')->store('images', 'public');
+            $product->photo = $photoPath;
+            $product->save();
+        }
 
 
-    // if ($request->hasFile('file')) {
-    //     $photoPath = $request->file('file')->store('images', 'public');
-    //     $product->photo = $photoPath;
-    //     $product->save();
-    // }
-
-    return redirect()->route('products')->with('success', 'Product added successfully');
-}
+        return redirect()->route('products')->with('success', 'Product added successfully');
+    }
     /**
      * Display the specified resource.
      */
@@ -142,5 +144,38 @@ public function search(Request $request){
     })->paginate(4);
 
     return view('products.index', compact('product','search'));
+}
+
+
+
+public function sellConfirmed(Request $request, $id)
+{
+    // Validate the request data
+    $request->validate([
+        'quantity' => 'required|integer|min:1|max:' . Product::findOrFail($id)->quantity,
+    ]);
+
+    // Find the product by ID
+    $product = Product::findOrFail($id);
+
+    // Check if the quantity to sell is valid
+    if ($request->quantity > $product->quantity) {
+        return redirect()->back()->withErrors(['error' => 'Not enough quantity available']);
+    }
+
+    // Create a new entry in the sells table
+    Sell::create([
+        'product_id' => $product->id,
+        'product_name' => $product->productName, // Store product name
+        'unit_price' => $product->unitPrice, // Store unit price
+        'quantity' => $request->quantity, // Store quantity sold
+    ]);
+
+    // Update the product quantity
+    $product->quantity -= $request->quantity;
+    $product->save();
+
+    // Redirect back with a success message
+    return redirect()->route('products')->with('success', 'Product sold successfully!');
 }
 }

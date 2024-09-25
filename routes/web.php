@@ -50,6 +50,8 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}', 'edit')->name('products.edit');
         Route::put('edit/{id}', 'update')->name('products.update');
         Route::delete('destroy/{id}', 'destroy')->name('products.destroy');
+        Route::post('products/sell/{id}', [ProductController::class, 'sellConfirmed'])->name('products.sell');
+
 
         Route::get('search', 'search')->name('search');
     });

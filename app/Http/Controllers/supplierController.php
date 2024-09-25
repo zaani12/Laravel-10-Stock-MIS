@@ -34,7 +34,7 @@ class supplierController extends Controller
             'email'=>'required|email',
             'phone'=>'required|numeric',
             'address'=>'required',
-        ]);    
+        ]);
         Supplier::create($validatedData);
         return redirect()->route('suppliers/index')->with('message','supplier added successfully');
     }
@@ -84,3 +84,5 @@ class supplierController extends Controller
         return redirect()->route('suppliers/index')->with('message','supplier successfully deleted');
     }
 }
+
+
