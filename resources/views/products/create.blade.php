@@ -25,11 +25,12 @@
         <div class="col">
             <input type="file" name="file" class="form-control" placeholder="Product Image">
         </div>
-    </div>
-    <div class="row mb-3">
         <div class="col">
             <input type="date" name="registerDate" class="form-control" placeholder="Register Date">
         </div>
+    </div>
+    <div class="row mb-3">
+
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

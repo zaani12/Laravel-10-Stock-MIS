@@ -143,6 +143,11 @@ return [
         'driver' => 'file',
         // 'store' => 'redis',
     ],
+    'aliases' => [
+    // ...
+    'PDF' => Barryvdh\DomPDF\Facade::class,
+],
+
 
     /*
     |--------------------------------------------------------------------------
