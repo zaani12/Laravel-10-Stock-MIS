@@ -51,6 +51,22 @@ Route::middleware('auth')->group(function () {
         Route::put('edit/{id}', 'update')->name('products.update');
         Route::delete('destroy/{id}', 'destroy')->name('products.destroy');
         Route::post('products/sell/{id}', [ProductController::class, 'sellConfirmed'])->name('products.sell');
+        Route::get('/cart/checkout', [ProductController::class, 'checkout'])->name('cart.checkout');
+        Route::get('/cart', [ProductController::class, 'showCart'])->name('cart.index');
+        Route::post('/products/add-to-cart/{id}', [ProductController::class, 'addToCart'])->name('products.addToCart');
+        Route::get('/cart/remove/{id}', [ProductController::class, 'removeFromCart'])->name('cart.remove');
+        Route::get('/cart/checkout', [ProductController::class, 'checkout'])->name('cart.checkout');
+        Route::post('/cart/checkout/complete', [ProductController::class, 'complete'])->name('cart.complete');
+        Route::get('/cart/pdf', [ProductController::class, 'generatePDF'])->name('cart.pdf');
+
+// In routes/web.php
+Route::post('/products/cart/confirm', [ProductController::class, 'sellConfirmed'])->name('cart.confirm');
+Route::post('/cart/confirm', [ProductController::class, 'sellConfirmed'])->name('cart.confirm');
+
+
+        Route::get('/products/market', [ProductController::class, 'market'])->name('products.market');
+
+
 
 
         Route::get('search', 'search')->name('search');
