@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Session;
 
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
-
 class ProductController extends Controller
 {
     /**
@@ -363,36 +360,5 @@ public function generatePDF()
 }
 
 
-
-
-
-// dashboard function
-
-
-public function showDashboard()
-{
-    // Fetch daily sales for the last 7 days
-    $dailySales = Sell::select(
-        DB::raw('SUM(unit_price * quantity) as total_sales'),
-        DB::raw('DATE(created_at) as date')
-    )
-    ->whereDate('created_at', '>=', Carbon::now()->subDays(7))
-    ->groupBy('date')
-    ->orderBy('date') // Ensure the dates are ordered
-    ->get();
-    dd($dailySales);
-    // Fetch monthly sales for the current year
-    $monthlySales = Sell::select(
-        DB::raw('SUM(unit_price * quantity) as total_sales'),
-        DB::raw('MONTH(created_at) as month')
-    )
-    ->whereYear('created_at', Carbon::now()->year)
-    ->groupBy('month')
-    ->orderBy('month') // Ensure the months are ordered
-    ->get();
-
-    // Return view with the fetched data using compact
-    return view('dashboard', compact('dailySales', 'monthlySales'));
 }
 
-}
