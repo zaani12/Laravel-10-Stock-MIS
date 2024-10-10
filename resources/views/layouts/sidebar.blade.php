@@ -29,6 +29,11 @@
       <span>Store</span></a>
   </li>
 
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('invoices.index') }}">
+      <i class="fas fa-file-invoice"></i>
+      <span>invoices</span></a>
+  </li>
 
   <!-- <li class="nav-item">
     <a class="nav-link" href="fetchEmployees">
@@ -41,12 +46,12 @@
       <i class="fas fa-fw fa-users"></i>
       <span>Suppliers</span></a>
   </li>
-
+<!--
   <li class="nav-item">
     <a class="nav-link" href="userAccounts">
       <i class="fas fa-fw fa-lock"></i>
       <span>User Accounts</span></a>
-  </li>
+  </li> -->
 
   <li class="nav-item">
     <a class="nav-link" href="/profile">

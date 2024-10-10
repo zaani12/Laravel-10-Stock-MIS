@@ -14,4 +14,9 @@ class Supplier extends Model
         'email',
         'address',
     ];
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'supplier_id'); // Assuming 'supplier_id' is the foreign key in the Invoice model
+    }
 }

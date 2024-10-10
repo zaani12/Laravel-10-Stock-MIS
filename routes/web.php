@@ -12,6 +12,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\supplierController;
+use App\Http\Controllers\InvoiceController;
 use GuzzleHttp\Middleware;
 
 /*
@@ -140,5 +141,8 @@ Route::view('addAccount','addUser');
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
-
+Route::get('/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
+Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.store');
+Route::get('/invoices/{invoice}', [InvoiceController::class, 'show'])->name('invoices.show');
+Route::get('invoices', [InvoiceController::class, 'index'])->name('invoices.index');
 require __DIR__.'/auth.php';
