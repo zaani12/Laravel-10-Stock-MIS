@@ -25,7 +25,7 @@
         <div class="col-md-3 mb-4"> <!-- Bootstrap column with margin bottom -->
             <div class="card h-100"> <!-- Use h-100 for equal height cards -->
                 <!-- Product image with Bootstrap's responsive class -->
-                <img src="{{ $item->photo ? asset('storage/' . $item->photo) : asset('default-image.png') }}" class="card-img-top" alt="{{ $item->productName }}" style="height: 200px; object-fit: cover;">
+                <img src="{{ url('storage/' . $item->photo) }}" class="card-img-top" alt="{{ $item->productName }}" style="height: 200px; object-fit: cover;">
                 <div class="card-body d-flex flex-column"> <!-- Use flex-column for layout -->
                     <h5 class="card-title">{{ $item->productName }}</h5>
                     <p class="card-text">
