@@ -39,9 +39,13 @@
                         @csrf
                         <div class="mb-3">
                             <label for="quantity{{ $item->id }}" class="form-label">Quantity to Sell</label>
-                            <input type="number" name="quantity" id="quantity{{ $item->id }}" class="form-control" min="1" max="{{ $item->quantity }}" required>
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('quantity{{ $item->id }}').stepDown()">-</button>
+                                <input type="number" name="quantity" id="quantity{{ $item->id }}" class="form-control" min="1" max="{{ $item->quantity }}" value="0" required>
+                                <button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('quantity{{ $item->id }}').stepUp()">+</button>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        <button type="submit" class="btn btn-primary w-100">Add to Cart</button>
                     </form>
                 </div>
             </div>

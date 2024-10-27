@@ -1,11 +1,11 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-orange-gradient sidebar sidebar-dark accordion" id="accordionSidebar" style="background: linear-gradient(90deg, #805AD5 0%, #5A67D8 100%);">
 
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
     <div class="sidebar-brand-icon rotate-n-15">
-      <i class="fas fa-laugh-wink"></i>
+      <i class="fas fa-motorcycle"></i>
     </div>
-    <div class="sidebar-brand-text mx-3">Stock MIS</div>
+    <div class="sidebar-brand-text mx-3">Ziko Moto</div>
   </a>
 
   <!-- Divider -->
@@ -29,6 +29,11 @@
       <span>Store</span></a>
   </li>
 
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('invoices.index') }}">
+      <i class="fas fa-file-invoice"></i>
+      <span>invoices</span></a>
+  </li>
 
   <!-- <li class="nav-item">
     <a class="nav-link" href="fetchEmployees">
@@ -41,12 +46,12 @@
       <i class="fas fa-fw fa-users"></i>
       <span>Suppliers</span></a>
   </li>
-
+<!--
   <li class="nav-item">
     <a class="nav-link" href="userAccounts">
       <i class="fas fa-fw fa-lock"></i>
       <span>User Accounts</span></a>
-  </li>
+  </li> -->
 
   <li class="nav-item">
     <a class="nav-link" href="/profile">
