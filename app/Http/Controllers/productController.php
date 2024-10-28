@@ -333,17 +333,12 @@ public function sellConfirmed(Request $request)
     // Clear the cart after the sale
     session()->forget('cart');
 
-    // Redirect with a success message
-    return redirect()->route('products.market')->with('success', 'Sale confirmed and inventory updated!');
+    // Generate the PDF invoice
+    return $this->generatePDF($cart);
 }
 
-
-
-
-
-public function generatePDF()
+public function generatePDF($cart)
 {
-    $cart = session()->get('cart');
     $totalAmount = 0;
 
     if ($cart) {
@@ -358,7 +353,6 @@ public function generatePDF()
     // Download the PDF file
     return $pdf->download('invoice.pdf');
 }
-
 
 }
 

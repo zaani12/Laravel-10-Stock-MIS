@@ -163,7 +163,7 @@
           <small>{{ auth()->user()->level }}</small>
         </span>
         <!-- <img class="img-profile rounded-circle" src="https://startbootstrap.github.io/startbootstrap-sb-admin-2/img/undraw_profile.svg"> -->
-        <img class="img-profile rounded-circle" src="storage/{{ auth()->user()->photo }}">
+        <img class="img-profile rounded-circle" src="{{ asset('storage/' .  auth()->user()->photo) }}">
       </a>
       <!-- Dropdown - User Information -->
       <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

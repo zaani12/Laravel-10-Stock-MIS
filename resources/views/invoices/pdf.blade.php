@@ -59,7 +59,7 @@
             </tr>
         </thead>
         <tbody>
- 
+
     </table>
 
     <div class="footer">

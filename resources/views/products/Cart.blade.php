@@ -54,7 +54,6 @@
         @csrf
         <button type="submit" class="btn btn-success">Confirm Sale</button>
         <!-- PDF Invoice Button -->
-        <a href="{{ route('cart.pdf') }}" class="btn btn-primary">Download PDF Invoice</a>
     </form>
 
     @else

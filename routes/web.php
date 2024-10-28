@@ -141,8 +141,13 @@ Route::view('addAccount','addUser');
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
-Route::get('/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
-Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.store');
-Route::get('/invoices/{invoice}', [InvoiceController::class, 'show'])->name('invoices.show');
-Route::get('invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+Route::prefix('invoices')->group(function () {
+    Route::get('/', [InvoiceController::class, 'index'])->name('invoices.index'); // List all invoices
+    Route::get('/create', [InvoiceController::class, 'create'])->name('invoices.create'); // Show create invoice form
+    Route::post('/', [InvoiceController::class, 'store'])->name('invoices.store'); // Store a new invoice
+    Route::get('/{id}', [InvoiceController::class, 'show'])->name('invoices.show'); // Show a specific invoice
+    Route::get('/{id}/edit', [InvoiceController::class, 'edit'])->name('invoices.edit'); // Show edit form for an invoice
+    Route::put('/{id}', [InvoiceController::class, 'update'])->name('invoices.update'); // Update a specific invoice
+    Route::delete('/{id}', [InvoiceController::class, 'destroy'])->name('invoices.destroy'); // Delete a specific invoice
+});
 require __DIR__.'/auth.php';
